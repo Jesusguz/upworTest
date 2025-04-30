@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Collection;
 interface TaskServiceInterface
 {
     /**
-     * Get all tasks based on the specified filter.
+     * Get tasks based on a filter and order by position.
      *
-     * @param string $filter 'all', 'pending', or 'completed'
+     * @param string $filter 'all', 'pending', 'completed'.
      * @return Collection<int, Task>
      */
     public function getAllTasks(string $filter = 'all'): Collection;
@@ -26,8 +26,9 @@ interface TaskServiceInterface
     /**
      * Create a new task.
      *
-     * @param array $data Task data, including 'title', 'description' (optional), 'category_id' (optional).
+     * @param array $data Task data (title, description, category_id, etc.).
      * @return Task
+     * @throws \InvalidArgumentException
      */
     public function createTask(array $data): Task;
 
@@ -35,8 +36,8 @@ interface TaskServiceInterface
      * Update an existing task.
      *
      * @param Task $task The task instance to update.
-     * @param array $data Update data, including 'title', 'description' (optional), 'category_id' (optional).
-     * @return bool True on success, false on failure.
+     * @param array $data Task data to update.
+     * @return bool
      */
     public function updateTask(Task $task, array $data): bool;
 
@@ -44,23 +45,23 @@ interface TaskServiceInterface
      * Delete a task.
      *
      * @param Task $task The task instance to delete.
-     * @return bool|null True on success, false on failure, null on error.
+     * @return bool|null
      */
     public function deleteTask(Task $task): ?bool;
 
     /**
      * Toggle the completion status of a task.
      *
-     * @param Task $task The task instance to toggle.
+     * @param Task $task The task instance.
      * @return bool The new completion status.
      */
     public function toggleTaskCompletion(Task $task): bool;
 
     /**
-     * Get all categories.
+     * Update the position of tasks based on a given order of IDs.
      *
-     * @return Collection
+     * @param array $taskIdsInOrder Array of task IDs in their desired order.
+     * @return void
      */
-    public function getAllCategories(): Collection; // Podrías tener un CategoryService aparte para SRP más estricto
-
+    public function updateTaskOrder(array $taskIdsInOrder): void;
 }

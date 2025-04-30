@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{{-- resources/views/layouts/app.blade.php --}}
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -16,14 +17,14 @@
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    {{-- Aquí es donde el contenido de tu componente Livewire será insertado --}}
+    {{-- Aquí es donde el contenido del componente Livewire de página será insertado --}}
     {{ $slot }}
 </div>
 
 @livewireScripts
 
-{{-- Script para las notificaciones Toast (si usas SweetAlert2 u otra librería) --}}
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- Script para las notificaciones Toast (requiere SweetAlert2 o similar instalado) --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('livewire:init', () => {
         Livewire.on('toast', (event) => {
@@ -42,6 +43,6 @@
 </script>
 
 
-@vite('resources/js/app.js') {{-- Incluye tu JS principal (con Alpine.js) --}}
+@vite('resources/js/app.js')
 </body>
 </html>
